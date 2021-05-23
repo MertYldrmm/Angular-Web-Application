@@ -1,0 +1,57 @@
+<div class="container-fluid mb-5">
+  <br>
+  <div align="center"> <h2>Telefon Numarasına Göre Müşteri Listesi</h2></div>
+  <hr>
+  <div class="alert alert-danger" *ngIf="isError">{{ errorMsg }}</div>
+  <form #subscriberForm="ngForm" (ngSubmit)="onSubmit($event)" novalidate>
+
+    <div class="form group">
+      <label>Telefon Numarası</label>
+      <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid" class="form-control"
+        name="phoneNumber" [ngModel]>
+    </div>
+    <br>
+    <button [disabled]="subscriberForm.form.invalid" class="btn btn-outline-primary" type="submit">ARA</button>
+  </form>
+  <br>
+
+  <div class="table-responsive" *ngIf="tutorials">
+    <table  class="table table-hover">
+      <thead>
+          <tr class=" table-info">
+              <th scope="col">ID</th>
+              <th scope="col">NAME</th>
+              <th scope="col">Adress</th>
+              <th scope="col">Location</th>
+              <th scope="col">sub city</th>
+              <th scope="col">City</th>
+              <th scope="col">Brand</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Distributor Number</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let tutorial of tutorials;">
+              <td scope="row"><a routerLink="/orders/{{ tutorial.subscriptionId }}">
+                {{ tutorial.subscriptionId}}   
+              </a> </td>
+              <td>{{ tutorial.fullName }}</td>
+              <td>{{ tutorial.address }}</td>
+              <td>{{ tutorial.locationName }}</td>
+              <td>{{ tutorial.subCityName }}</td>
+              <td>{{ tutorial.cityName }}</td>
+              <td>{{ tutorial.brand }}</td>
+              <td>{{ tutorial.phoneNumber }}</td>
+              <td>{{ tutorial.distributorNumber }}</td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+  <div *ngIf="!tutorials">
+    <br />
+    <p>Lütfen doğru telefon numarası giriniz..</p>
+  </div>
+  
+  <hr>
+  <button  class="btn btn-outline-primary" routerLink="/orders">SİPARİŞ LİSTESİNE GİT</button>
+</div>

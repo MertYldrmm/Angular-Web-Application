@@ -1,0 +1,53 @@
+<div class="container-fluid mb-5">
+  <br>
+  <div align="center"><h2>Abonelik Kimliğine Göre Sipariş Listesi</h2></div>
+  <hr>
+  <div class="alert alert-danger" *ngIf="isError">{{ errorMsg }}</div>
+  <form #orderForm="ngForm" (ngSubmit)="onSubmit($event)" novalidate>
+
+    <div class="form group">
+      <label>Abonelik ID</label>
+      <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid" class="form-control" name="id"
+        [ngModel]>
+    </div>
+    <br>
+    <button [disabled]="orderForm.form.invalid" class="btn btn-outline-primary" type="submit">ARA</button>
+  </form>
+  <br>
+  
+  <div class="table-responsive" *ngIf="tutorials">
+    <table class="table table-hover">
+      <thead>
+        <tr class=" table-info">
+          <th scope="col">Order ID</th>
+          <th scope="col">Subscription ID</th>
+          <th scope="col">Delivery Date</th>
+          <th scope="col">Payment Method</th>
+          <th scope="col">Products</th>
+          <th scope="col">Total Amount</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tutorial of tutorials">
+          <td scope="row">{{ tutorial.orderId}} </td>
+          <td>{{ tutorial.subscriptionId }}</td>
+          <td>{{ tutorial.deliveryDate }}</td>
+          <td>{{ tutorial.paymentMethod }}</td>
+          <td >
+            <p *ngFor="let products of tutorial.products">{{ products.product }}: {{products.quantity}} adet</p>
+          </td>
+          <td>{{ tutorial.totalAmount }}</td>
+          <td>{{ tutorial.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!tutorials">
+    <br />
+    <p>Lütfen doğru bir ID giriniz..</p>
+  </div>
+
+  <hr>
+  <button  class="btn btn-outline-primary" routerLink="/subscription">ABONE LİSTESİNE GİT</button>
+</div>
